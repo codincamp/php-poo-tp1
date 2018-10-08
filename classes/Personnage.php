@@ -9,6 +9,9 @@ class Personnage
     const CEST_MOI = 1; // Constante renvoyée par la méthode `frapper` si on se frappe soi-même.
     const PERSONNAGE_TUE = 2; // Constante renvoyée par la méthode `frapper` si on a tué le personnage en le frappant.
     const PERSONNAGE_FRAPPE = 3; // Constante renvoyée par la méthode `frapper` si on a bien frappé le personnage.
+
+    const DAMAGE_MIN = 5;
+    const DAMAGE_MAX = 25;
     
     public function __construct(array $donnees)
     {
@@ -39,7 +42,7 @@ class Personnage
     
     public function recevoirDegats()
     {
-        $this->_degats += 5;
+        $this->_degats += rand(self::DAMAGE_MIN, self::DAMAGE_MAX);
     
         // Si on a 100 de dégâts ou plus, on dit que le personnage a été tué.
         if ($this->_degats >= 100) {
