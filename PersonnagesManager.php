@@ -1,4 +1,5 @@
 <?php
+
 class PersonnagesManager
 {
     private $_db; // Instance de PDO
@@ -15,9 +16,9 @@ class PersonnagesManager
         $q->execute();
     
         $perso->hydrate([
-      'id' => $this->_db->lastInsertId(),
-      'degats' => 0,
-    ]);
+          'id' => $this->_db->lastInsertId(),
+          'degats' => 0,
+        ]);
     }
   
     public function count()
@@ -37,7 +38,6 @@ class PersonnagesManager
         }
     
         // Sinon, c'est qu'on veut vérifier que le nom existe ou pas.
-    
         $q = $this->_db->prepare('SELECT COUNT(*) FROM personnages WHERE nom = :nom');
         $q->execute([':nom' => $info]);
     

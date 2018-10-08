@@ -18,9 +18,9 @@ if (isset($_GET['deconnexion'])) {
 include_once 'config/settings.php';
 
 if (DEBUG) {
-  error_reporting(E_ALL);
-  ini_set('display_errors', true);
-  ini_set('display_startup_errors', true);
+    error_reporting(E_ALL);
+    ini_set('display_errors', true);
+    ini_set('display_startup_errors', true);
 }
 
 $db = new PDO('mysql:host='.DB_HOSTNAME.';dbname='.DB_DATABASE, DB_USERNAME, DB_PASSWORD);
@@ -62,35 +62,31 @@ if (isset($_POST['creer']) && isset($_POST['nom'])) { // Si on a voulu créer un
             $retour = $perso->frapper($persoAFrapper); // On stocke dans $retour les éventuelles erreurs ou messages que renvoie la méthode frapper.
       
             switch ($retour) {
-        case Personnage::CEST_MOI:
-          $message = 'Mais... pourquoi voulez-vous vous frapper ???';
-          break;
-        
-        case Personnage::PERSONNAGE_FRAPPE:
-          $message = 'Le personnage a bien été frappé !';
-          
-          $manager->update($perso);
-          $manager->update($persoAFrapper);
-          
-          break;
-        
-        case Personnage::PERSONNAGE_TUE:
-          $message = 'Vous avez tué ce personnage !';
-          
-          $manager->update($perso);
-          $manager->delete($persoAFrapper);
-          
-          break;
-      }
+    
+                case Personnage::CEST_MOI:
+                    $message = 'Mais... pourquoi voulez-vous vous frapper ???';
+                break;
+
+                case Personnage::PERSONNAGE_FRAPPE:
+                    $message = 'Le personnage a bien été frappé !';
+                    $manager->update($perso);
+                    $manager->update($persoAFrapper);
+                break;
+
+                case Personnage::PERSONNAGE_TUE:
+                    $message = 'Vous avez tué ce personnage !';
+                    $manager->update($perso);
+                    $manager->delete($persoAFrapper);
+                break;
+            }
         }
     }
 }
-?>
-<!DOCTYPE html>
+
+?><!DOCTYPE html>
 <html>
   <head>
     <title>TP : Mini jeu de combat</title>
-    
     <meta charset="utf-8" />
   </head>
   <body>
