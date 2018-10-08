@@ -1,12 +1,12 @@
 <?php
 
 // On enregistre notre autoload.
-function chargerClasse($classname)
+function loadClass($class)
 {
-    require "classes/{$classname}.php";
+    require "classes/{$class}.php";
 }
 
-spl_autoload_register('chargerClasse');
+spl_autoload_register('loadClass');
 
 session_start(); // On appelle session_start() APRÈS avoir enregistré l'autoload.
 
