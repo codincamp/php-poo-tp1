@@ -70,6 +70,7 @@ if (isset($_POST['creer']) && isset($_POST['nom'])) { // Si on a voulu créer un
   <head>
     <title>TP : Mini jeu de combat</title>
     <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
   <body>
     <p>Nombre de personnages créés : <?= $manager->count() ?></p>
@@ -100,6 +101,7 @@ $persos = $manager->getList($perso->nom());
     } else {
         foreach ($persos as $unPerso) {
             echo '<a href="?frapper=', $unPerso->id(), '">', htmlspecialchars($unPerso->nom()), '</a> (dégâts : ', $unPerso->degats(), ')<br />';
+            echo "<div class='damage'><div style='width: {$unPerso->degats()}%'></div></div>";
         }
     } ?>
       </p>
