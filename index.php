@@ -15,7 +15,9 @@ if (isset($_GET['deconnexion'])) {
     exit();
 }
 
-$db = new PDO('mysql:host=localhost;dbname=oc_phpoo', 'root', 'password');
+include_once 'config/settings.php';
+
+$db = new PDO('mysql:host='.DB_HOSTNAME.';dbname='.DB_DATABASE, DB_USERNAME, DB_PASSWORD);
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING); // On émet une alerte à chaque fois qu'une requête a échoué.
 
 $manager = new PersonnagesManager($db);
