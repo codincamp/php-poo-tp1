@@ -59,11 +59,19 @@ class PersonnagesManager
         }
     }
   
-    public function getList($nom)
+    public function getList($nom = null)
     {
         $persos = [];
     
-        $q = $this->_db->prepare('SELECT id, nom, degats FROM personnages WHERE nom <> :nom ORDER BY nom');
+        $sql = 'SELECT id, nom, degats FROM personnages WHERE 1=1 ';
+
+        if ($nom !== null) {
+            $sql.= 'AND nom <> :nom ';
+        }
+
+        $sql.= 'ORDER BY nom';
+
+        $q = $this->_db->prepare($sql);
         $q->execute([':nom' => $nom]);
     
         while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {

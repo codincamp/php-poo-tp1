@@ -106,6 +106,25 @@ $persos = $manager->getList($perso->nom());
     </fieldset>
 <?php
 } else {
+
+    if ($manager->count() > 0) {
+
+        ?>
+        <h2>Liste des personnages:</h2>
+        <ul>
+        <?php
+
+            $allPersonnages = $manager->getList();
+            foreach ($allPersonnages as $personnage) {
+                echo "<li>{$personnage->nom()}</li>";
+            }
+
+        ?>
+        </ul>
+        <?php
+
+    }
+
     ?>
     <form action="" method="post">
       <p>
