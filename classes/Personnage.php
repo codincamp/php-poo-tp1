@@ -30,7 +30,7 @@ class Personnage
         $this->_experience++;
 
         // Check if we need to increase a level
-        if ($this->_experience >= 100) {
+        if ($this->_experience >= 10) {
             // 1. Reset experience
             $this->_experience = 1;
             // 2. Increase level
@@ -39,7 +39,7 @@ class Personnage
     
         // On indique au personnage qu'il doit recevoir des dégâts.
         // Puis on retourne la valeur renvoyée par la méthode : self::PERSONNAGE_TUE ou self::PERSONNAGE_FRAPPE
-        return $perso->recevoirDegats();
+        return $perso->recevoirDegats($this);
     }
     
     public function hydrate(array $donnees)
@@ -53,9 +53,15 @@ class Personnage
         }
     }
 
-    public function recevoirDegats()
+    public function recevoirDegats(Personnage $perso)
     {
-        $this->_degats += rand(self::DAMAGE_MIN, self::DAMAGE_MAX);
+        $degats = ceil(5 * ((1 + ($perso->level() / 10))));
+        $this->_degats += $degats;
+
+        if (DEBUG) {
+            error_log('Level ' . $perso->level());
+            error_log('Hit ' . $degats);
+        }
     
         // Si on a 100 de dégâts ou plus, on dit que le personnage a été tué.
         if ($this->_degats >= 100) {
