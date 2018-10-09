@@ -5,6 +5,8 @@ class Personnage
     private $_degats;
     private $_id;
     private $_nom;
+    private $_experience;
+    private $_level;
     
     const CEST_MOI = 1; // Constante renvoyée par la méthode `frapper` si on se frappe soi-même.
     const PERSONNAGE_TUE = 2; // Constante renvoyée par la méthode `frapper` si on a tué le personnage en le frappant.
@@ -23,6 +25,17 @@ class Personnage
         if ($perso->id() == $this->_id) {
             return self::CEST_MOI;
         }
+
+        // Increase experience
+        $this->_experience++;
+
+        // Check if we need to increase a level
+        if ($this->_experience >= 100) {
+            // 1. Reset experience
+            $this->_experience = 1;
+            // 2. Increase level
+            $this->_level++;
+        }
     
         // On indique au personnage qu'il doit recevoir des dégâts.
         // Puis on retourne la valeur renvoyée par la méthode : self::PERSONNAGE_TUE ou self::PERSONNAGE_FRAPPE
@@ -39,7 +52,7 @@ class Personnage
             }
         }
     }
-    
+
     public function recevoirDegats()
     {
         $this->_degats += rand(self::DAMAGE_MIN, self::DAMAGE_MAX);
@@ -68,6 +81,16 @@ class Personnage
     {
         return $this->_nom;
     }
+
+    public function experience()
+    {
+        return $this->_experience;
+    }
+
+    public function level()
+    {
+        return $this->_level;
+    }
     
     public function setDegats($degats)
     {
@@ -92,6 +115,16 @@ class Personnage
         if (is_string($nom)) {
             $this->_nom = $nom;
         }
+    }
+
+    public function setExperience($experience)
+    {
+        $this->_experience = $experience;
+    }
+
+    public function setLevel($level)
+    {
+        $this->_level = $level;
     }
 
     public function nomValide()
