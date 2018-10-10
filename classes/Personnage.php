@@ -14,6 +14,7 @@ class Personnage
 
     const DAMAGE_MIN = 5;
     const DAMAGE_MAX = 25;
+    const LEVEL_THRESHOLD = 100;
     
     public function __construct(array $donnees)
     {
@@ -30,7 +31,7 @@ class Personnage
         $this->_experience++;
 
         // Check if we need to increase a level
-        if ($this->_experience >= 100) {
+        if ($this->_experience >= self::LEVEL_THRESHOLD) {
             // 1. Reset experience
             $this->_experience = 1;
             // 2. Increase level
